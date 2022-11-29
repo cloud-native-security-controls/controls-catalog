@@ -69,7 +69,8 @@ SR-4 (4)  PROVENANCE | SUPPLY CHAIN INTEGRITY — PEDIGREE",N/A,N/A
 62,CNSWP v1.0,Deploy,"AI, ML, or statistical modeling are used for behavioural and heuristic environment analysis to detect unwanted activities",,SI-3 SYSTEM AND INFORMATION INTEGRITY,N/A,N/A
 63,CNSWP v1.0,Develop,Establish a dedicated Production environment,"Ensure that production workloads are in a separate, dedicated environment from non-production workloads. In the context of containers, this can mean separate clusters. In the case of VMs, separate networks.",SA-3(1) SYSTEM DEVELOPMENT LIFE CYCLE | MANAGE PREPRODUCTION ENVIRONMENT,N/A,N/A
 64,CNSWP v1.0,Develop,Leverage Dynamic deployments,"Blue/Green, Alpha/Beta, Canary, red-black deployments",SA-8(31) SECURITY AND PRIVACY ENGINEERING PRINCIPLES | SECURE SYSTEM MODIFICATION,N/A,N/A
-65,CNSWP v1.0,Develop,Integrate vulnerability and configuration scanning in either the IDE or at the CI system during pull request,,SA-11(1) DEVELOPER TESTING AND EVALUATION | STATIC CODE ANALYSIS,N/A,N/A
+65,CNSWP v1.0,Develop,Integrate vulnerability and configuration scanning in both the IDE and at the CI system during pull request,,SA-11(1) DEVELOPER TESTING AND EVALUATION | STATIC CODE ANALYSIS,N/A,N/A
+
 66,CNSWP v1.0,Develop,"Establish dedicated development, testing, and production environment",,"SA-15 DEVELOPMENT PROCESS, STANDARDS, AND TOOLS",N/A,N/A
 67,CNSWP v1.0,Develop,Build tests for business-critical code,,SA-11 DEVELOPER TESTING AND EVALUATION,N/A,N/A
 68,CNSWP v1.0,Develop,Build tests for business-critical infrastructure,,SA-11 DEVELOPER TESTING AND EVALUATION,N/A,N/A
