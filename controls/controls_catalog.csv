@@ -1,6 +1,5 @@
 ID,Originating Document,Section,Control Title,Control Implementation,NIST SP800-53r5 references,Assurance Level,Risk Categories
 1,CNSWP v1.0,Access,"Secrets are injected at runtime, such as environment variables or as a file",,IA-5(7) Authenticator Management | No Embedded Unencrypted Static Authenticators,N/A,N/A
-
 2,CNSWP v1.0,Access,Applications and workloads are explicitly authorized to communicate with each other using mutual authentication,,IA-9 Service Identification and Authentication,N/A,N/A
 3,CNSWP v1.0,Access,Keys are rotated frequently,,SC-12 Cryptographic Key Establishment and Management,N/A,N/A
 4,CNSWP v1.0,Access,Key lifespan is short,,SC-12(3) Cryptographic Key Establishment and Management | Asymetric Key,N/A,N/A
@@ -41,7 +40,7 @@ SI-7(17) Software, Firmware, and Information Integrity | Runtime Application Sel
 36,CNSWP v1.0,Compute,Policies are defined that restrict communications to only occur between sanctioned microservice pairs,,SC-7 Boundary Protection,N/A,N/A
 37,CNSWP v1.0,Compute,"Use a policy agent to control and enforce authorized, signed container images",,CM-5 Access Restrictions for Change,N/A,N/A
 38,CNSWP v1.0,Compute,Use a policy agent to control provenance assurance for operational workloads,,CM-5 Access Restrictions for Change,N/A,N/A
-39,CNSWP v1.0,Compute,Use a service mesh that eliminates implicit trust through data-in-motion protection (i.e. confidentiality, integrity, authentication, authorization),,SC-7 Boundary Protection,N/A,N/A
+39,CNSWP v1.0,Compute,"Use a service mesh that eliminates implicit trust through data-in-motion protection (i.e. confidentiality, integrity, authentication, authorization)",,SC-7 Boundary Protection,N/A,N/A
 40,CNSWP v1.0,Compute,"Use components that detect, track, aggregate and report system calls and network traffic from a container",should be leveraged to look for unexpected or malicious behavior,SI-4 System Monitoring,N/A,N/A
 41,CNSWP v1.0,Compute,Workloads should be dynamically scanned to detect malicious or insidious behavior for which no known occurrence yet exists,"Events such as an extended sleep command that executes data exfiltration from etcd after the workload has been running for X amount of days are not expected in the majority of environments and therefore are not included in security tests. The aspect that workloads can have time or event delayed trojan horses is only detectable by comparing to baseline expected behavior, often discovered during thorough activity and scan monitoring",SI-3 Malicious Code Protection,N/A,N/A
 42,CNSWP v1.0,Compute,Environments are continuously scanned to detect new vulnerabilities in workloads,"Vulnerabilities are constantly being discovered, just because it wasnt vulnerable at deploy, doesn't mean it won't be vulnerable in two weeks",RA-5 Vulnerability Monitoring and Scanning,N/A,N/A
@@ -70,7 +69,6 @@ SR-4 (4)  PROVENANCE | SUPPLY CHAIN INTEGRITY — PEDIGREE",N/A,N/A
 63,CNSWP v1.0,Develop,Establish a dedicated Production environment,"Ensure that production workloads are in a separate, dedicated environment from non-production workloads. In the context of containers, this can mean separate clusters. In the case of VMs, separate networks.",SA-3(1) SYSTEM DEVELOPMENT LIFE CYCLE | MANAGE PREPRODUCTION ENVIRONMENT,N/A,N/A
 64,CNSWP v1.0,Develop,Leverage Dynamic deployments,"Blue/Green, Alpha/Beta, Canary, red-black deployments",SA-8(31) SECURITY AND PRIVACY ENGINEERING PRINCIPLES | SECURE SYSTEM MODIFICATION,N/A,N/A
 65,CNSWP v1.0,Develop,Integrate vulnerability and configuration scanning in both the IDE and at the CI system during pull request,,SA-11(1) DEVELOPER TESTING AND EVALUATION | STATIC CODE ANALYSIS,N/A,N/A
-
 66,CNSWP v1.0,Develop,"Establish dedicated development, testing, and production environment",,"SA-15 DEVELOPMENT PROCESS, STANDARDS, AND TOOLS",N/A,N/A
 67,CNSWP v1.0,Develop,Build tests for business-critical code,,SA-11 DEVELOPER TESTING AND EVALUATION,N/A,N/A
 68,CNSWP v1.0,Develop,Build tests for business-critical infrastructure,,SA-11 DEVELOPER TESTING AND EVALUATION,N/A,N/A
