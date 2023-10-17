@@ -5,6 +5,7 @@ import logging
 from argparse import ArgumentParser
 from datetime import datetime, timezone
 from os import PathLike
+from pathlib import Path
 from typing import NamedTuple
 from uuid import uuid4
 
@@ -75,7 +76,7 @@ def create_catalog(controls: list[CloudNativeControlCsvRow]) -> Catalog:
     return Catalog(uuid=str(uuid4()), metadata=metadata, controls=oscal_controls)
 
 
-def write_catalog(catalog: Catalog, output: str) -> None:
+def write_catalog(catalog: Catalog, output: PathLike) -> None:
     with open(output, "w") as fh:
         fh.write(catalog.json())
 
@@ -86,15 +87,15 @@ def get_args_config() -> dict:
 
     parser.add_argument(
         "--input",
-        type=str,
-        default="controls/controls_catalog.csv",
+        type=Path,
+        default=Path(__file__).absolute().parent / "controls/controls_catalog.csv",
         help="The input file",
     )
 
     parser.add_argument(
         "--output",
-        type=str,
-        default="controls/controls_catalog.json",
+        type=Path,
+        default=Path(__file__).absolute().parent / "controls/controls_catalog.json",
         help="The output file",
     )
 
