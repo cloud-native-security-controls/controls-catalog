@@ -1,0 +1,45 @@
+---
+name: "Commit"
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+env:
+  python_version: "3.12"
+
+defaults:
+  run:
+    shell: 'bash --noprofile --norc -Eeuo pipefail {0}'
+
+jobs:
+  generate-oscal:
+    name: Generate OSCAL
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v3
+      - name: Setup python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ env.python_version }}
+      - uses: actions/cache@v3
+        with:
+          path: ~/.local/share/virtualenvs
+          key: ${{ runner.os }}-python-${{ env.python_version }}-pipenv-${{ hashFiles('Pipfile.lock') }}
+      - name: Install the dependencies
+        run: |
+          python -m pip install --upgrade pipenv
+          pipenv install --deploy --ignore-pipfile --dev
+      - name: Generate the OSCAL artifacts
+        run: pipenv run ./csv_to_oscal.py
+      - name: Upload the generated OSCAL
+        uses: actions/upload-artifact@v3
+        with:
+          name: OSCAL
+          path: controls/controls_catalog.json
+          if-no-files-found: error
