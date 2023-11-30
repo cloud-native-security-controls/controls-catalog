@@ -23,6 +23,10 @@ jobs:
     steps:
       - name: Checkout the repository
         uses: actions/checkout@v3
+      - name: Lint
+        run: |
+          tr -d $'\r' controls/controls_catalog.csv
+          if ! git diff-index --quiet HEAD --; then echo "Please remove  characters from controls/controls_catalog.csv"; exit 1; fi
       - name: Setup python
         uses: actions/setup-python@v4
         with:
