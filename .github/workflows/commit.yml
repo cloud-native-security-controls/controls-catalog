@@ -25,7 +25,8 @@ jobs:
         uses: actions/checkout@v3
       - name: Lint
         run: |
-          tr -d $'\r' < controls/controls_catalog.csv
+          tr -d $'\r' < controls/controls_catalog.csv > controls/controls_catalog.tmp
+          mv controls/controls_catalog.tmp controls/controls_catalog.csv
           if ! git diff-index --quiet HEAD --; then echo 'Please remove carriage returns from controls/controls_catalog.csv'; exit 1; fi
       - name: Setup python
         uses: actions/setup-python@v4
