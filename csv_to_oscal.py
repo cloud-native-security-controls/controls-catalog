@@ -47,14 +47,10 @@ def transform_csv(csv_rows: list[list[str]]) -> list[CloudNativeControlCsvRow]:
 
             if not r or not len(r) == header_cols_count:
                 logging.error(f"Row {idx} does not have correct column count")
-                continue
+                sys.exit(1)
 
             # Remove ID in column 0, we do not need it, keep the rest
-            try:
-                controls.append(CloudNativeControlCsvRow(*r[1:]))
-            except TypeError:
-                logging.error(f"Row {idx} does not have correct column count")
-                sys.exit(1)
+            controls.append(CloudNativeControlCsvRow(*r[1:]))
 
         return controls
 
