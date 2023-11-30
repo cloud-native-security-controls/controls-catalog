@@ -2,6 +2,7 @@
 
 import csv
 import logging
+import sys
 from argparse import ArgumentParser
 from datetime import datetime, timezone
 from os import PathLike
@@ -49,7 +50,11 @@ def transform_csv(csv_rows: list[list[str]]) -> list[CloudNativeControlCsvRow]:
                 continue
 
             # Remove ID in column 0, we do not need it, keep the rest
-            controls.append(CloudNativeControlCsvRow(*r[1:]))
+            try:
+                controls.append(CloudNativeControlCsvRow(*r[1:]))
+            except TypeError:
+                logging.error(f"Row {idx} does not have correct column count")
+                sys.exit(1)
 
         return controls
 
