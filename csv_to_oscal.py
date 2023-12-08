@@ -29,6 +29,9 @@ def read_csv(file_path: PathLike, *args, **kwargs) -> list[list[str]]:
         with open(file_path, "r", newline="", encoding="UTF-8") as fd:
             csv_reader = csv.reader(fd, *args, **kwargs)
             return list(csv_reader)
+    except FileNotFoundError:
+        logging.error(f"File not found a path: {file_path}")
+        sys.exit(1)
     except Exception as err:
         logging.exception(f"error reading csv: {err}")
         sys.exit(1)
@@ -54,9 +57,12 @@ def transform_csv(csv_rows: list[list[str]]) -> list[CloudNativeControlCsvRow]:
             controls.append(CloudNativeControlCsvRow(*r[1:]))
 
         return controls
-
+    except (ValueError, IndexError) as err:
+        logging.error(f"Error in Transform CSV: {err}")
+        sys.exit(1)
     except Exception as err:
-        raise err
+        logging.exception(f"Unknown error in transforming CSV: {err}")
+        sys.exit(1)
 
 
 def create_catalog(controls: list[CloudNativeControlCsvRow]) -> Catalog:
