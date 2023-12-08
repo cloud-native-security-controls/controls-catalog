@@ -30,7 +30,7 @@ def read_csv(file_path: PathLike, *args, **kwargs) -> list[list[str]]:
             csv_reader = csv.reader(fd, *args, **kwargs)
             return list(csv_reader)
     except Exception as err:
-        logging.exception(f"error reading csv": {err}")
+        logging.exception(f"error reading csv: {err}")
         sys.exit(1)
 
 
