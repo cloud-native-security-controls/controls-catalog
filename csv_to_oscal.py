@@ -2,6 +2,7 @@
 
 import csv
 import logging
+import sys
 from argparse import ArgumentParser
 from datetime import datetime, timezone
 from os import PathLike
@@ -28,8 +29,12 @@ def read_csv(file_path: PathLike, *args, **kwargs) -> list[list[str]]:
         with open(file_path, "r", newline="", encoding="UTF-8") as fd:
             csv_reader = csv.reader(fd, *args, **kwargs)
             return list(csv_reader)
+    except FileNotFoundError:
+        logging.error(f"File not found a path: {file_path}")
+        sys.exit(1)
     except Exception as err:
-        raise err
+        logging.exception(f"error reading csv: {err}")
+        sys.exit(1)
 
 
 def transform_csv(csv_rows: list[list[str]]) -> list[CloudNativeControlCsvRow]:
@@ -46,15 +51,18 @@ def transform_csv(csv_rows: list[list[str]]) -> list[CloudNativeControlCsvRow]:
 
             if not r or not len(r) == header_cols_count:
                 logging.error(f"Row {idx} does not have correct column count")
-                continue
+                sys.exit(1)
 
             # Remove ID in column 0, we do not need it, keep the rest
             controls.append(CloudNativeControlCsvRow(*r[1:]))
 
         return controls
-
+    except (ValueError, IndexError) as err:
+        logging.error(f"Error in Transform CSV: {err}")
+        sys.exit(1)
     except Exception as err:
-        raise err
+        logging.exception(f"Unknown error in transforming CSV: {err}")
+        sys.exit(1)
 
 
 def create_catalog(controls: list[CloudNativeControlCsvRow]) -> Catalog:

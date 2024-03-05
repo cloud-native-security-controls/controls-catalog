@@ -231,3 +231,176 @@ SA-3 SYSTEM DEVELOPMENT LIFE CYCLE",Moderate to High,Moderate to High
 192,SSCP v1.0,Securing the Source Code,Use SSH keys to provide developers access to source code repositories,,AC-1 REMOTE ACCESS,Moderate to High,Moderate to High
 193,SSCP v1.0,Securing the Source Code,Have a key rotation policy,"It is recommended to implement a key rotation policy to ensure that compromised keys will cease to be usable after a certain period of time. When a private key is known to have been compromised, it should be revoked and replaced immediately to shut off access for any unauthorized user. Organizations may also consider using short lived certificates or keys, which reduces the reliance on certificate revocation systems.",AC-2(1) ACCOUNT MANAGEMENT | AUTOMATED SYSTEM ACCOUNT MANAGEMENT,Moderate to High,Moderate to High
 194,SSCP v1.0,Securing the Source Code,Use short-lived/ephemeral credentials for machine/service access,"Short-life credential issuance encourages the use of fine grained permissions and automation in provisioning access tokens. For CI/CD pipeline agents, short-lived access tokens should be considered instead of password-based credentials. The use of very short-lived tokens like OAuth 2.0, OpenID Connect, etc., will help to implement more secure access and increase the security assurance.",AC-2(1) ACCOUNT MANAGEMENT | AUTOMATED SYSTEM ACCOUNT MANAGEMENT,Moderate to High,Moderate to High
+195,CNSWP v2.0,Access,"Secrets are injected at runtime, such as environment variables or as a file",,IA-5(7) Authenticator Management | No Embedded Unencrypted Static Authenticators,N/A,N/A
+196,CNSWP v2.0,Access,Applications and workloads are explicitly authorized to communicate with each other using mutual authentication,,IA-9 Service Identification and Authentication,N/A,N/A
+197,CNSWP v2.0,Access,Keys are rotated frequently,,SC-12 Cryptographic Key Establishment and Management,N/A,N/A
+198,CNSWP v2.0,Access,Key lifespan is short,,SC-12(3) Cryptographic Key Establishment and Management | Asymetric Key,N/A,N/A
+199,CNSWP v2.0,Access,Credentials and keys protecting sensitive workloads (health/finance/etc) are customer managed (e.g. generated and managed independent of a cloud service provider),KMS and HMS are common technologies to achieve this. FIPS 140-2 compliance is strongly suggested. Cloud KMS tends to be FIPS 140-2 Level 2 or greater.,IA-2(12) Identification and Authentication (Organizational Users) | Acceptance of PIV Credentials,N/A,N/A
+200,CNSWP v2.0,Access,Authentication and authorization are determined independently,,IA-2(6) Identification and Authentication (Organizational Users) | Access to Accounts - Separate Devices,N/A,N/A
+201,CNSWP v2.0,Access,Authentication and authorization are enforced independently,,IA-2(6) Identification and Authentication (Organizational Users) | Access to Accounts - Separate Devices,N/A,N/A
+202,CNSWP v2.0,Access,Access control and file permissions are updated in real-time,where possible as caching may permit unauthorized access,SI-4(2) System Monitoring | Automated Tools and Mechanisms for Real-Time Analysis,N/A,N/A
+203,CNSWP v2.0,Access,Authorization for workloads is granted based on attributs and roles/permissions previously assigned,,AC-3(13) Access Enforcement | Attribute-Based Access Control,N/A,N/A
+204,CNSWP v2.0,Access,ABAC and RBAC are used,,"AC-3(13) Access Enforcement | Attribute-Based Access Control
+AC-3(7) Access Enforcement | Role-Based Access Control",N/A,N/A
+205,CNSWP v2.0,Access,"End user identity is capable of being accepted, consumed, and forwarded on for contextual or dynamic authorization",This can be achieved through the use of identity documents and tokens.,SC-7(19) Boundary Protection | Block Communication from Non-Organizationally Configured Hosts,N/A,N/A
+206,CNSWP v2.0,Access,All cluster and workloads operators are authenticated,,IA-7 Cryptographic Module Authentication,N/A,N/A
+207,CNSWP v2.0,Access,"cluster and worklods operate actions are evaluated against access control policies governing context, purpose, and output",,IA-7 Cryptographic Module Authentication,N/A,N/A
+208,CNSWP v2.0,Access,Identity federation uses multi-factor authentication for human users,,IA-2(1)(2) Identification and Authentication (organizational Users) | Multi-Factor Authenticaiton to Priviledged & Non Priveledged Accounts,N/A,N/A
+209,CNSWP v2.0,Access,HSMs are used to physically protect cryptographic secrets with an encryption key residing in the HSM,"If this is not possible, software-based credential managers should be used.","AC-4(4) Information Flow Enforcement | Flow Control of Encrypted Information
+SC-3(1) Security Function Isolation | Hardware Separation",N/A,N/A
+210,CNSWP v2.0,Access,Secrets should have a short expiration period or time to live,Leverage tool-specific capabilities of secret manager,SI-12 Information Management and Retention,N/A,N/A
+211,CNSWP v2.0,Access,Time to live and expiration period on secrets is verfied to prevent reuse,Leverage tool-specific capabilities of secret manager,AC-16(3) Security and Privacy Attributes | Maintenance of Attribute Associations by System,N/A,N/A
+212,CNSWP v2.0,Access,Secrets management systems are highly available,,SC-12(1) Cryptographic Key Establishment and Management | Availability,N/A,N/A
+213,CNSWP v2.0,Access,Long-lived secrets adhere to periodic rotation and revocation,"Long-lived secrets are not recommended, but some capabilities require them",SI-12 Information Management and Retention,N/A,N/A
+214,CNSWP v2.0,Access,Secrets are distributed through secured communication channels protected commensurate with the level of access or data they are protecting,,AC-16 Security and Privacy Atributes,N/A,N/A
+215,CNSWP v2.0,Access,"Secrets injected are runtime are masqued or dropped from logs, audit, or system dumps","Even short lived secrets may be resused if caught in time by an interested attacker. Logs, audit, and systems dumps (i.e. in-memory shared volumes instead of environment variables) are all areas where runtime injected secrets show up",AU-9(3) Protection of Audit Information | Cryptographic Protection,N/A,N/A
+216,CNSWP v2.0,Compute,Bootstrapping is employed to verify correct physical and logical location of compute,Secure Boot with TPM 2.0 or similar control,"SI-7(9) Software, Firmware, and Information Integrity | Verify Boot Process",N/A,N/A
+217,CNSWP v2.0,Compute,Disparate data sensitive workloads are not run on the same host OS kernel,"There are at least three implementing controls possible: workloads may be separated by running in a separate cluster, on a separate node, or by implementing pods in independent VMs. It is also possible to emulate the kernel via an application kernel (e.g. gvisor)",SC-7 Boundary Protection,N/A,N/A
+218,CNSWP v2.0,Compute,Monitor and detect any changes to the initial configurations made in runtime,Preventative controls should be the primary control. Detective controls monitoring filesystem changes should be used to verify primary controls are operating properly.,CM-2(2) Baseline Configuration | Automation Support for Accuracy and Currency CM-3(7) Configuration Change Control | Review System Changes,N/A,N/A
+219,CNSWP v2.0,Compute,API auditing is enabled with a filter for a specific set of API Groups or verbs,"API audits of the application, kubernetes API server, and kernel should be implemented.",AU-2 Event Logging,N/A,N/A
+220,CNSWP v2.0,Compute,Container specific operating systems are in use,a read-only OS with other services disabled. This provides isolation and resource confinement that enables developers to run isolated applications on a shared host kernel,CM-2 Baseline Configuration CM-7 Least Functionality,N/A,N/A
+221,CNSWP v2.0,Compute,The hardware root of trust is based in a Trusted Platform Module (TPM) or virtual TPM (vTPM),"Ensure HW root of trust extends to the host OS kernel, modules, system images, container runtimes, and all software on the system.","SI-7 Software, Firmware, and Information Integrity",N/A,N/A
+222,CNSWP v2.0,Compute,Minimize administrative access to the control plane,Enure both users and pods have the minimum necessary access,AC-6 Least Privilege,N/A,N/A
+223,CNSWP v2.0,Compute,Object level and resource requests and limits are controlled through cgroups,"helps prevent exhaustion of node and cluster level resources by one misbehaving workload due to an intentional (e.g., fork bomb attack or cryptocurrency mining) or unintentional (e.g., reading a large file in memory without input validation, horizontal autoscaling to exhaust compute resources) issue","SI-7(16) Software, Firmware, and Information Integrity | Time Limit on Process Execution Without Supervision
+SI-7(17) Software, Firmware, and Information Integrity | Runtime Application Self-protection",N/A,N/A
+224,CNSWP v2.0,Compute,Systems processing alerts are periodically tuned for false positives,"to avoid alert flooding, fatigue, and false negatives after security incidents that were not detected by the system",SI-4(13) System Monitoring | Analyze Traffic and Event Patterns,N/A,N/A
+225,CNSWP v2.0,Compute,All orchestrator control plane components are configured to communicate via mutual authentication and certificate validation with a periodically rotated certificate,"In unfederated clusters, the CA should be used exclusively for the current cluster.",AC-3 Access Enforcement,N/A,N/A
+226,CNSWP v2.0,Compute,"Only sanctioned capabilities and system calls (e.g. seccomp filters), are allowed to execute or be invoked in a container by the host operating system",Additional tooling should be installed that go beyond k8s capabilities to limit system calls. E.g. Falco.,CM-2 Baseline Configuration CM-7 Least Functionality,N/A,N/A
+227,CNSWP v2.0,Compute,"Changes to critical mount points and files are prevented, monitored, and alerted",,CM-5 Access Restrictions for Change,N/A,N/A
+228,CNSWP v2.0,Compute,"Runtime configuration control prevents changes to binaries, certificates, and remote access configurations",,CM-5 Access Restrictions for Change,N/A,N/A
+229,CNSWP v2.0,Compute,Runtime configuration prevents ingress and egress network access for containers to only what is required to operate,,SC-7 Boundary Protection,N/A,N/A
+230,CNSWP v2.0,Compute,Policies are defined that restrict communications to only occur between sanctioned microservice pairs,,SC-7 Boundary Protection,N/A,N/A
+231,CNSWP v2.0,Compute,"Use a policy agent to control and enforce authorized, signed container images",,CM-5 Access Restrictions for Change,N/A,N/A
+232,CNSWP v2.0,Compute,Use a policy agent to control provenance assurance for operational workloads,,CM-5 Access Restrictions for Change,N/A,N/A
+233,CNSWP v2.0,Compute,"Use a service mesh that eliminates implicit trust through data-in-motion protection (i.e. confidentiality, integrity, authentication, authorization)",,SC-7 Boundary Protection,N/A,N/A
+234,CNSWP v2.0,Compute,"Use components that detect, track, aggregate and report system calls and network traffic from a container",should be leveraged to look for unexpected or malicious behavior,SI-4 System Monitoring,N/A,N/A
+235,CNSWP v2.0,Compute,Workloads should be dynamically scanned to detect malicious or insidious behavior for which no known occurrence yet exists,"Events such as an extended sleep command that executes data exfiltration from etcd after the workload has been running for X amount of days are not expected in the majority of environments and therefore are not included in security tests. The aspect that workloads can have time or event delayed trojan horses is only detectable by comparing to baseline expected behavior, often discovered during thorough activity and scan monitoring",SI-3 Malicious Code Protection,N/A,N/A
+236,CNSWP v2.0,Compute,Environments are continuously scanned to detect new vulnerabilities in workloads,"Vulnerabilities are constantly being discovered, just because it wasnt vulnerable at deploy, doesn't mean it won't be vulnerable in two weeks",RA-5 Vulnerability Monitoring and Scanning,N/A,N/A
+237,CNSWP v2.0,Compute,"Actionable audit events are generated that correlate/contextualize data from logs into ""information"" that can drive decision trees/incident response",,AU-3 Content of Audit Records,N/A,N/A
+238,CNSWP v2.0,Compute,Segregation of duties and the principle of least privilege is enforced,,AC-6 Least Privilege,N/A,N/A
+239,CNSWP v2.0,Compute,Non-compliant violations are detected based on a pre-configured set of rules defined by the organization's policies,,"SI-7 Software, Firmware, and Information Integrity",N/A,N/A
+240,CNSWP v2.0,Compute,Native secret stores encrypt with keys from an external Key Management Store (KMS),,SC-12(3) Systems & Communication Protection,N/A,N/A
+241,CNSWP v2.0,Compute,Native secret stores are not configured for base64 encoding or stored in clear-text in the key-value store by default,Encoding is not encryption,SC-12(3) Systems & Communication Protection,N/A,N/A
+242,CNSWP v2.0,Compute,Network traffic to malicious domains is detected and denied,,SI-4 System Monitoring,N/A,N/A
+243,CNSWP v2.0,Compute,"Use encrypted containers for sensitive sources, methods, and data",,SC-28 Protection of Information at Rest,N/A,N/A
+244,CNSWP v2.0,Compute,"Use SBOMs to identify current deployments of vulnerable libraries, dependencies, and packages",,CM-8 System Component Inventory,N/A,N/A
+245,CNSWP v2.0,Compute,Processes must execute only functions explicitly defined in an allow list,,CM-2 Baseline Configuration CM-7 Least Functionality,N/A,N/A
+246,CNSWP v2.0,Compute,Functions are not be allowed to make changes to critical file system mount points,,CM-5 Access Restrictions for Change,N/A,N/A
+247,CNSWP v2.0,Compute,Function access is only permitted to sanctioned services,Either through networking restrictions or least privilege in permission models,CM-2 Baseline Configuration CM-7 Least Functionality,N/A,N/A
+248,CNSWP v2.0,Compute,Egress network connection is monitored to detect and prevent access to C&C (command and control) and other malicious network domains,,SI-4 System Monitoring,N/A,N/A
+249,CNSWP v2.0,Compute,Ingress network inspection is employed detect and remove malicious payloads and commands,"For instance, SQL injection attacks can be detected using inspection.",SI-4 System Monitoring,N/A,N/A
+250,CNSWP v2.0,Compute,Serverless functions are run in tenant-based resource or performance isolation for similar data classifications,This may impact the performance due to limitations in the address space available to the isolation environment and should be considered for only the most sensitive workloads.,SC-7(21) Boundary Protection | Isolation of System Components,N/A,N/A
+251,CNSWP v2.0,Deploy,Trust confirmation verifies the image has a valid signature from an authorized source,,"SR-4 (3) PROVENANCE | VALIDATE AS GENUINE AND NOT ALTERED
+SR-4 (4)  PROVENANCE | SUPPLY CHAIN INTEGRITY — PEDIGREE",N/A,N/A
+252,CNSWP v2.0,Deploy,Image runtime policies are enforced prior to deployment,,"SI-7 (17) SOFTWARE, FIRMWARE, AND INFORMATION INTEGRITY | RUNTIME APPLICATION SELF-PROTECTION",N/A,N/A
+253,CNSWP v2.0,Deploy,Image integrity and signature are verified prior to deployment,,"SR-4 (3) PROVENANCE | VALIDATE AS GENUINE AND NOT ALTERED
+SR-4 (4)  PROVENANCE | SUPPLY CHAIN INTEGRITY — PEDIGREE",N/A,N/A
+254,CNSWP v2.0,Deploy,"Applications provide logs regarding authentication, authorization, actions, and failures",,CM-3 CONFIGURATION CHANGE CONTROL,N/A,N/A
+255,CNSWP v2.0,Deploy,Forensics capabilities are integrated into an incident response plan and procedures,,INCIDENT HANDLING | MALICIOUS CODE AND FORENSIC ANALYSIS,N/A,N/A
+256,CNSWP v2.0,Deploy,"AI, ML, or statistical modeling are used for behavioural and heuristic environment analysis to detect unwanted activities",,SI-3 SYSTEM AND INFORMATION INTEGRITY,N/A,N/A
+257,CNSWP v2.0,Develop,Establish a dedicated Production environment,"Ensure that production workloads are in a separate, dedicated environment from non-production workloads. In the context of containers, this can mean separate clusters. In the case of VMs, separate networks.",SA-3(1) SYSTEM DEVELOPMENT LIFE CYCLE | MANAGE PREPRODUCTION ENVIRONMENT,N/A,N/A
+258,CNSWP v2.0,Develop,Leverage Dynamic deployments,"Blue/Green, Alpha/Beta, Canary, red-black deployments",SA-8(31) SECURITY AND PRIVACY ENGINEERING PRINCIPLES | SECURE SYSTEM MODIFICATION,N/A,N/A
+259,CNSWP v2.0,Develop,Integrate vulnerability and configuration scanning in both the IDE and at the CI system during pull request,,SA-11(1) DEVELOPER TESTING AND EVALUATION | STATIC CODE ANALYSIS,N/A,N/A
+260,CNSWP v2.0,Develop,"Establish dedicated development, testing, and production environment",,"SA-15 DEVELOPMENT PROCESS, STANDARDS, AND TOOLS",N/A,N/A
+261,CNSWP v2.0,Develop,Build tests for business-critical code,,SA-11 DEVELOPER TESTING AND EVALUATION,N/A,N/A
+262,CNSWP v2.0,Develop,Build tests for business-critical infrastructure,,SA-11 DEVELOPER TESTING AND EVALUATION,N/A,N/A
+263,CNSWP v2.0,Develop,Test suite able to be ran locally,,SA-11 DEVELOPER TESTING AND EVALUATION,N/A,N/A
+264,CNSWP v2.0,Develop,Test suites should be available to run in a shared environment,,SA-11 DEVELOPER TESTING AND EVALUATION,N/A,N/A
+265,CNSWP v2.0,Develop,Implement at least one other non-author reviewer/approver prior to merging,,SA-11(4) DEVELOPER TESTING AND EVALUATION | MANUAL CODE REVIEWS,N/A,N/A
+266,CNSWP v2.0,Develop,Code should be clean and well commented,,,N/A,N/A
+267,CNSWP v2.0,Develop,Full infrastructure tests are used,,SA-11 DEVELOPER TESTING AND EVALUATION,N/A,N/A
+268,CNSWP v2.0,Develop,Regression tests are used,,SA-11 DEVELOPER TESTING AND EVALUATION,N/A,N/A
+269,CNSWP v2.0,Develop,Test suites are updated against new and emerging threats and developed into security regressions tests,,SA-11 DEVELOPER TESTING AND EVALUATION,N/A,N/A
+270,CNSWP v2.0,Develop,Establish a dedicated Testing environment,,SA-3(1) SYSTEM DEVELOPMENT LIFE CYCLE | MANAGE PREPRODUCTION ENVIRONMENT,N/A,N/A
+271,CNSWP v2.0,Develop,Continuous integration server is isolated and hardened,,SC-39 PROCESS ISOLATION,N/A,N/A
+272,CNSWP v2.0,Develop,Use threat model results to determine ROI for test development,,SA-11(2) DEVELOPER TESTING AND EVALUATION | THREAT MODELING AND VULNERABILITY ANALYSES,N/A,N/A
+273,CNSWP v2.0,Develop,Implement secure configuration as the default state of the system,"Transitioning towards such a system involves making security a design requirement, inheriting default security configuration and supporting an exception process",SA-8(23) SECURITY AND PRIVACY ENGINEERING PRINCIPLES | SECURE DEFAULTS,N/A,N/A
+274,CNSWP v2.0,Distribute,"Should software artifacts become untrusted due to compromise or other incident, teams should revoke signing keys to ensure repudiation",,,N/A,N/A
+275,CNSWP v2.0,Distribute,Artifacts ready for deployment are managed in a staging or pre-prod registry,,,N/A,N/A
+276,CNSWP v2.0,Distribute,container images are hardened following best practices,"Images contain least permissions to remain functional, do not allow for shell, do not include unnecessary libraries and dependencies, do not bind mount files in from the host, etc.",,N/A,N/A
+277,CNSWP v2.0,Distribute,Static application security testing (SAST) is performed,Static analysis is performed by dedicated SAST tools as well as linters,,N/A,N/A
+278,CNSWP v2.0,Distribute,Test suites follow the test pyramid,,,N/A,N/A
+279,CNSWP v2.0,Distribute,Artifacts undergoing active development are held in a private registery,,,N/A,N/A
+280,CNSWP v2.0,Distribute,Scan application manifests in CI pipeline,,RA-5 VULNERABILITY MONITORING AND SCANNING,N/A,N/A
+281,CNSWP v2.0,Distribute,CI server's for sensitive workloads are isolated from other workloads,,SC-39 PROCESS ISOLATION,N/A,N/A
+282,CNSWP v2.0,Distribute,Builds requiring elevated privileges must run on dedicated servers,,SC-39 PROCESS ISOLATION,N/A,N/A
+283,CNSWP v2.0,Distribute,Build policies are enforced on the CI pipeline,,SA-1 POLICY AND PROCEDURES,N/A,N/A
+284,CNSWP v2.0,Distribute,Sign pipeline metadata,,"SI-7 SOFTWARE, FIRMWARE, AND INFORMATION INTEGRITY",N/A,N/A
+285,CNSWP v2.0,Distribute,Build stages are verified prior to the next stage executing,,"SI-7 SOFTWARE, FIRMWARE, AND INFORMATION INTEGRITY",N/A,N/A
+286,CNSWP v2.0,Distribute,Images are scanned within the CI pipeline,,"RA-5 VULNERABILITY MONITORING AND SCANNING
+SA-3 SYSTEM DEVELOPMENT LIFE CYCLE",N/A,N/A
+287,CNSWP v2.0,Distribute,Vulnerability scans are coupled with pipeline compliance rules,Prevent insecure images and artifacts from being deployed,SA-1 POLICY AND PROCEDURES,N/A,N/A
+288,CNSWP v2.0,Distribute,Dynamic application security testing (DAST) is performed,,SA-11 (8) & (9) INTERACTIVE APPLICATION SECURITY TESTING,N/A,N/A
+289,CNSWP v2.0,Distribute,Application instrumentation is employed,,SI-4 SYSTEM MONITORING,N/A,N/A
+290,CNSWP v2.0,Distribute,Automated test results map back to requirements,"Requirements include feature, function, security, and complaince",,N/A,N/A
+291,CNSWP v2.0,Distribute,Infrastructure security tests must be employed,"firewall rules open to the world, overprivileged Identity & Access Management (IAM) policies, unauthenticated endpoints, etc",,N/A,N/A
+292,CNSWP v2.0,Distribute,Tests to verify the security health are executed at time of build and at time of deploy,to evaluate any changes or regressions that may have occurred throughout the lifecycle.,SI-4 SYSTEM MONITORING,N/A,N/A
+293,CNSWP v2.0,Distribute,IaC is subject to the same pipeline policy controls as application code,,,N/A,N/A
+294,CNSWP v2.0,Distribute,Security testing is automated,,"SA-11 DEVELOPER TESTING AND EVALUATION
+CA-8 PENETRATION TESTING",N/A,N/A
+295,CNSWP v2.0,Distribute,Registries require mutually authenticated TLS for all registry connections,,IA-3(1) CRYPTOGRAPHIC BIDIRECTIONAL AUTHENTICATION,N/A,N/A
+296,CNSWP v2.0,Distribute,Image and metadata are signed,,"SI-7 SOFTWARE, FIRMWARE, AND INFORMATION INTEGRITY",N/A,N/A
+297,CNSWP v2.0,Distribute,Workload-related configuration is signed,,"SI-7 SOFTWARE, FIRMWARE, AND INFORMATION INTEGRITY",N/A,N/A
+298,CNSWP v2.0,Distribute,Workload-related package is signed,,"SI-7 SOFTWARE, FIRMWARE, AND INFORMATION INTEGRITY",N/A,N/A
+299,CNSWP v2.0,Distribute,Validate integrity of images,,SI-7 SYSTEM & INFORMATION INTEGRITY,N/A,N/A
+300,CNSWP v2.0,Distribute,Scan images for vulnerabilities and malware,,"RA-5 VULNERABILITY MONITORING AND SCANNING
+SA-3 SYSTEM DEVELOPMENT LIFE CYCLE",N/A,N/A
+301,CNSWP v2.0,Distribute,Enable image signing key revokation in the event of compromise,,SI-7 SYSTEM & INFORMATION INTEGRITY,N/A,N/A
+302,CNSWP v2.0,Distribute,Security updates are prioritized,,SI-2(3) SYSTEM & INFORMATION INTEGRITY,N/A,N/A
+303,CNSWP v2.0,Distribute,"HSMs or credential managers should be used for protecting credentials. If this is not possible, software-based credential managers should be used.",,SC-12(3) SYSTEMS & COMMUNICATION PROTECTION,N/A,N/A
+304,CNSWP v2.0,Distribute,Container image scanning findings are acted upon,,SI-2(3) SYSTEM & INFORMATION INTEGRITY,N/A,N/A
+305,CNSWP v2.0,Distribute,Organizational compliance rules are enforced,,PL-1 POLICY AND PROCEDURES,N/A,N/A
+306,CNSWP v2.0,Distribute,Incremental hardening of the infrastructure is employed,,,N/A,N/A
+307,CNSWP v2.0,Distribute,pulls from public registries are controlled and only from authorized engineers or internal registries,,AC-6(3) LEAST PRIVILEGE | NETWORK ACCESS TO PRIVILEGED COMMANDS,N/A,N/A
+308,CNSWP v2.0,Distribute,Image encryption is coupled with key management attestation and/or authorization and credential distribution,This restricts the image to only be deployed to authorized platforms. Container image authorization is useful for compliance use cases such as geo-fencing or export control and digital rights media management,"SC-12(2) CRYPTOGRAPHIC KEY ESTABLISHMENT AND MANAGEMENT | SYMMETRIC & ASYMMETRIC KEYS
+SC-12(3) CRYPTOGRAPHIC KEY ESTABLISHMENT AND MANAGEMENT | SYMMETRIC & ASYMMETRIC KEYS",N/A,N/A
+309,CNSWP v2.0,Distribute,At-risk applications are prioritized for remediation by the exploit maturity and vulnerable path presence in addition to the CVSS score,,SI-2(3) SYSTEM & INFORMATION INTEGRITY,N/A,N/A
+310,CNSWP v2.0,Security Assurance,Network policies enforce east-west network communication within the container deployment is limited to only that which is authorized for access,,AC-6(3) LEAST PRIVILEGE | NETWORK ACCESS TO PRIVILEGED COMMANDS,N/A,N/A
+311,CNSWP v2.0,Security Assurance,Incident reponse considers cloud native workloads,"workloads which may not always conform with some underlying assumptions about node isolation (new pod instances could run on a different server), networking (e.g. IP addresses are assigned dynamically) and immutability (e.g. runtime changes to container are not persisted across restarts)","IR-4 INCIDENT HANDLING | AUTOMATED INCIDENT HANDLING PROCESSES
+IR-4(5) INCIDENT HANDLING | AUTOMATIC DISABLING OF SYSTEM
+CA-7 CONTINUOUS MONITORING",N/A,N/A
+312,CNSWP v2.0,Security Assurance,Incident response accounts for appropriate evidence handling and collection of coud native workloads,,"IR-5(1) INCIDENT MONITORING | AUTOMATED TRACKING, DATA COLLECTION, AND ANALYSIS",N/A,N/A
+313,CNSWP v2.0,Security Assurance,Rootless builds are employed,,,N/A,N/A
+314,CNSWP v2.0,Security Assurance,cgroups and system groups are used to isolate workloads and deployments,,,N/A,N/A
+315,CNSWP v2.0,Security Assurance,MAC implementations are employed,"SELinux, AppArmor",AC-3(3) ACCESS ENFORCEMENT | MANDATORY ACCESS CONTROL,N/A,N/A
+316,CNSWP v2.0,Security Assurance,Threat model code and infrastructure,"While various strategies are available, the MITRE ATT&CK matrix is an excellent starting point",SA-11(2) DEVELOPER TESTING AND EVALUATION | THREAT MODELING AND VULNERABILITY ANALYSES,N/A,N/A
+317,CNSWP v2.0,Security Assurance,Entities are able to independently authenticate other identities,Public Key Infrastructure,IA-9 SERVICE IDENTIFICATION AND AUTHENTICATION,N/A,N/A
+318,CNSWP v2.0,Security Assurance,Each entity can create proof of who the identity is,,IA-9 SERVICE IDENTIFICATION AND AUTHENTICATION,N/A,N/A
+319,CNSWP v2.0,Security Assurance,"Orchestrator is running on an a trusted OS, BIOS, etc",,CM-14 SIGNED COMPONENTS,N/A,N/A
+320,CNSWP v2.0,Security Assurance,Orchestrator verifies the claims of a container,,SI-6 SECURITY AND PRIVACY FUNCTION VERIFICATION,N/A,N/A
+321,CNSWP v2.0,Security Assurance,Orchestrator network policies are used in conjunction with a service mesh,,,N/A,N/A
+322,CNSWP v2.0,Security Assurance,Adhere to supply chain security best practices,The SSCP controls in this document provide the necessary controls for best practices,,N/A,N/A
+323,CNSWP v2.0,Security Assurance,Restrict access to repository and branches,The 'Security the Source Code' SSCP controls provide the necessary GitOps best practices,,N/A,N/A
+324,CNSWP v2.0,Security Assurance,Never store unencrypted credentials or secrets in the Git repository and block sensitive data being pushed to Git,The 'Security the Source Code' SSCP controls provide the necessary GitOps best practices,,N/A,N/A
+325,CNSWP v2.0,Security Assurance,"Enforce strong identity with GPG Signed Commits, to give accountability and traceability",The 'Security the Source Code' SSCP controls provide the necessary GitOps best practices,,N/A,N/A
+326,CNSWP v2.0,Security Assurance,Require linear history and maintain a commit history by disallowing force pushes,The 'Security the Source Code' SSCP controls provide the necessary GitOps best practices,,N/A,N/A
+327,CNSWP v2.0,Security Assurance,Enforce branching policy. Especially protect the main branch and require code review before merging,The 'Security the Source Code' SSCP controls provide the necessary GitOps best practices,,N/A,N/A
+328,CNSWP v2.0,Security Assurance,"Monitor for vulnerabilities, and keep Git and GitOps tools up to date",The 'Security the Source Code' SSCP controls provide the necessary GitOps best practices,,N/A,N/A
+329,CNSWP v2.0,Security Assurance,"Rotate SSH keys and Personal Access Tokens, block unauthorized access to Git repositories",The 'Security the Source Code' SSCP controls provide the necessary GitOps best practices,,N/A,N/A
+330,CNSWP v2.0,Security Assurance,Utilize a dedicated non-user technical account for access where credentials are frequently rotated and short-lived,The 'Security the Source Code' SSCP controls provide the necessary GitOps best practices,,N/A,N/A
+331,CNSWP v2.0,Security Assurance,Limit users who can elevate permissions to remove security features to cover their tracks via deletion of audit trails and silencing of alerts,The 'Security the Source Code' SSCP controls provide the necessary GitOps best practices,,N/A,N/A
+332,CNSWP v2.0,Storage,Storage control plane management interface requires mutual authentication and TLS for connections,,SC-8 TRANSMISSION CONFIDENTIALITY AND INTEGRITY,N/A,N/A
+333,CNSWP v2.0,Storage,"Data availability is achieved through parity or mirroring, erasure coding or replicas",,SI-13 PREDICTABLE FAILURE PREVENTION,N/A,N/A
+334,CNSWP v2.0,Storage,"Hashing and checksums are added to blocks, objects or files","primarily designed to detect and recover from corrupted data, but can also add a layer of protection against the tampering of data.","CM-7 LEAST FUNCTIONALITY
+SI-7 SOFTWARE, FIRMWARE, AND INFORMATION INTEGRITY",N/A,N/A
+335,CNSWP v2.0,Storage,Data backup storage and data source storage should have same security controls,,"SA-9 EXTERNAL SYSTEM SERVICES
+SC-30 CONCEALMENT AND MISDIRECTION",N/A,N/A
+336,CNSWP v2.0,Storage,Secure erasure adhering to OPAL standards is employed for returned or non-functional devices,,"
+CP-9 SYSTEM BACKUP
+MP-6 MEDIA SANITIZATION",N/A,N/A
+337,CNSWP v2.0,Storage,"Encryption at rest considers data path, size, and frequency of access when determing additional security protections and cryptographic algorithms to employ","The encryption may be implemented in the storage client or storage server and granularity of the encryption will vary by system (e.g. per volume, per group or global keys)",SC-28 PROTECTION OF INFORMATION AT REST,N/A,N/A
+338,CNSWP v2.0,Storage,Caching is considered for determining encryption requirements in archictures,,,N/A,N/A
+339,CNSWP v2.0,Storage,Namespaces have defined trust boundaries to cordon access to volumes,,,N/A,N/A
+340,CNSWP v2.0,Storage,Security policies are used to prevent containers from accessing volume mounts on worker nodes,,"SC-7 BOUNDARY PROTECTION
+SA-8 SECURITY AND PRIVACY ENGINEERING PRINCIPLES
+CM-6 CONFIGURATION SETTINGS",N/A,N/A
+341,CNSWP v2.0,Storage,Security policies are used enforce authorized worker node access to volumes,,"SC-7 BOUNDARY PROTECTION
+SA-8 SECURITY AND PRIVACY ENGINEERING PRINCIPLES
+CM-6 CONFIGURATION SETTINGS",N/A,N/A
+342,CNSWP v2.0,Storage,Volume UID and GID are inaccessible to containers,,"AC-4 INFORMATION FLOW ENFORCEMENT
+AC-16 SECURITY AND PRIVACY ATTRIBUTES
+SI-7 SOFTWARE, FIRMWARE, AND INFORMATION INTEGRITY",N/A,N/A
+343,CNSWP v2.0,Storage,Artifact registry supports OCI artifacts,,,N/A,N/A
+344,CNSWP v2.0,Storage,Artifact registry supports signed artifacts,,CM-14 SIGNED COMPONENTS,N/A,N/A
+345,CNSWP v2.0,Storage,Artifact registry verifies artifacts against organizational policies,,"AU-10 NON-REPUDIATION
+CM-6 CONFIGURATION SETTINGS",N/A,N/A
