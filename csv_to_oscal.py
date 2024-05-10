@@ -86,7 +86,7 @@ def create_catalog(controls: list[CloudNativeControlCsvRow]) -> Catalog:
 
 def write_catalog(catalog: Catalog, output: PathLike) -> None:
     with open(output, "w") as fh:
-        fh.write(catalog.json())
+        fh.write(catalog.json(exclude_unset=True, indent=4))
 
 
 def get_args_config() -> dict:
