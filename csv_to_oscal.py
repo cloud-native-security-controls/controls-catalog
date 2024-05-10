@@ -11,8 +11,8 @@ from typing import NamedTuple
 from uuid import uuid4
 
 from trestle.oscal.catalog import Catalog, Control
-from trestle.oscal.common import Metadata
-
+from trestle.oscal.common import Metadata, Property
+from pydantic.error_wrappers import ValidationError
 
 class CloudNativeControlCsvRow(NamedTuple):
     origin_doc: str
@@ -65,11 +65,33 @@ def transform_csv(csv_rows: list[list[str]]) -> list[CloudNativeControlCsvRow]:
         sys.exit(1)
 
 
+def sanitize_value(value: str) -> str:
+    value = value.removeprefix("\n").removesuffix(" ").replace("\n", ", ")
+    return value
+
+
 def create_catalog(controls: list[CloudNativeControlCsvRow]) -> Catalog:
     oscal_controls = []
 
     for idx, c in enumerate(controls):
-        oscal_control = Control(id=f"control-{idx+1}", title=c.title)
+        props = []
+        try:
+            props.append(Property(name="section", value=c.section))
+            props.append(Property(name="assurance-level", value=c.assurance_level))
+            props.append(Property(name="risk-categories", value=c.risk_categories))
+            if c.implementation:
+                value = sanitize_value(c.implementation)
+                props.append(Property(name="description", value=value))
+            if c.nist_sp80053_refs:
+                value = sanitize_value(c.nist_sp80053_refs)
+                props.append(Property(name="refs", value=value))
+        except ValidationError as e:
+            print(c)
+            raise e
+        oscal_control = Control(id=f"control-{idx+1}",
+                                title=c.title,
+                                class_=c.origin_doc.replace(' ', '-'),
+                                props=props)
         oscal_controls.append(oscal_control)
 
     timestamp = datetime.now()
