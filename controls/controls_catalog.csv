@@ -7,7 +7,7 @@ ID,Originating Document,Section,Control Title,Control Implementation,NIST SP800-
 6,CNSWP v1.0,Access,Authentication and authorization are determined independently,,IA-2(6) Identification and Authentication (Organizational Users) | Access to Accounts - Separate Devices,N/A,N/A
 7,CNSWP v1.0,Access,Authentication and authorization are enforced independently,,IA-2(6) Identification and Authentication (Organizational Users) | Access to Accounts - Separate Devices,N/A,N/A
 8,CNSWP v1.0,Access,Access control and file permissions are updated in real-time,where possible as caching may permit unauthorized access,SI-4(2) System Monitoring | Automated Tools and Mechanisms for Real-Time Analysis,N/A,N/A
-9,CNSWP v1.0,Access,Authorization for workloads is granted based on attributs and roles/permissions previously assigned,,AC-3(13) Access Enforcement | Attribute-Based Access Control,N/A,N/A
+9,CNSWP v1.0,Access,Authorization for workloads is granted based on attributes and roles/permissions previously assigned,,AC-3(13) Access Enforcement | Attribute-Based Access Control,N/A,N/A
 10,CNSWP v1.0,Access,ABAC and RBAC are used,,"AC-3(13) Access Enforcement | Attribute-Based Access Control
 AC-3(7) Access Enforcement | Role-Based Access Control",N/A,N/A
 11,CNSWP v1.0,Access,"End user identity is capable of being accepted, consumed, and forwarded on for contextual or dynamic authorization",This can be achieved through the use of identity documents and tokens.,SC-7(19) Boundary Protection | Block Communication from Non-Organizationally Configured Hosts,N/A,N/A
@@ -239,7 +239,7 @@ SA-3 SYSTEM DEVELOPMENT LIFE CYCLE",Moderate to High,Moderate to High
 200,CNSWP v2.0,Access,Authentication and authorization are determined independently,,IA-2(6) Identification and Authentication (Organizational Users) | Access to Accounts - Separate Devices,N/A,N/A
 201,CNSWP v2.0,Access,Authentication and authorization are enforced independently,,IA-2(6) Identification and Authentication (Organizational Users) | Access to Accounts - Separate Devices,N/A,N/A
 202,CNSWP v2.0,Access,Access control and file permissions are updated in real-time,where possible as caching may permit unauthorized access,SI-4(2) System Monitoring | Automated Tools and Mechanisms for Real-Time Analysis,N/A,N/A
-203,CNSWP v2.0,Access,Authorization for workloads is granted based on attributs and roles/permissions previously assigned,,AC-3(13) Access Enforcement | Attribute-Based Access Control,N/A,N/A
+203,CNSWP v2.0,Access,Authorization for workloads is granted based on attributes and roles/permissions previously assigned,,AC-3(13) Access Enforcement | Attribute-Based Access Control,N/A,N/A
 204,CNSWP v2.0,Access,ABAC and RBAC are used,,"AC-3(13) Access Enforcement | Attribute-Based Access Control
 AC-3(7) Access Enforcement | Role-Based Access Control",N/A,N/A
 205,CNSWP v2.0,Access,"End user identity is capable of being accepted, consumed, and forwarded on for contextual or dynamic authorization",This can be achieved through the use of identity documents and tokens.,SC-7(19) Boundary Protection | Block Communication from Non-Organizationally Configured Hosts,N/A,N/A
