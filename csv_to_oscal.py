@@ -12,7 +12,7 @@ from uuid import uuid4
 
 from trestle.oscal.catalog import Catalog, Control
 from trestle.oscal.common import Metadata, Property
-from pydantic.error_wrappers import ValidationError
+from pydantic.v1 import ValidationError
 
 class CloudNativeControlCsvRow(NamedTuple):
     origin_doc: str
