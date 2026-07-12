@@ -22,17 +22,17 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout the repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Lint
         run: |
           tr -d $'\r' < controls/controls_catalog.csv > controls/controls_catalog.tmp
           mv controls/controls_catalog.tmp controls/controls_catalog.csv
           if [ -n "$(git status --porcelain)" ]; then echo 'Please remove carriage returns from controls/controls_catalog.csv'; exit 1; fi
       - name: Setup python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: ${{ env.python_version }}
-      - uses: actions/cache@v3
+      - uses: actions/cache@v4
         with:
           path: ~/.local/share/virtualenvs
           key: ${{ runner.os }}-python-${{ env.python_version }}-pipenv-${{ hashFiles('Pipfile.lock') }}
@@ -43,7 +43,7 @@ jobs:
       - name: Generate the OSCAL artifacts
         run: pipenv run ./csv_to_oscal.py
       - name: Upload the generated OSCAL
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: OSCAL
           path: controls/controls_catalog.json
